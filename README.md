@@ -1,7 +1,7 @@
-# Find A Bo 
+# Find a Bo 
 
 Findabo seeks to connect fellow Jumbos. Interested students can search by 
-student group or activity and be connected to volunteer members in the
+student group or activity and be connected to registered members in the
 organization.  
 
 ## Running Locally
@@ -11,7 +11,7 @@ First, install the dependencies as follows:
 npm install
 ```
 
-Run the site on localhost (Port 8000 by default) as follows:
+Run the site on localhost (port 8000 by default) as follows:
 ```
 node app.js
 ```
