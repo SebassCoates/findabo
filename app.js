@@ -1,5 +1,5 @@
 /*
- * Findabo
+ * Find a Bo
  * Connecting fellow Jumbos
  * Copyright (C) 2018  Sebastian Coates
 
@@ -38,6 +38,17 @@ app.get('/registration', (req, res) => {
                                 'registration.html'
                         ));
 })
+
+app.get('/admin', (req, res) => {
+        res.sendFile(path.join(
+                                __dirname, 
+                                'static', 
+                                'content', 
+                                'html', 
+                                'admin.html'
+                        ));
+})
+
 
 app.listen((process.env.PORT || PORT), function() {
   console.log('Node app is running on port: ' + (process.env.PORT || PORT));
