@@ -21,8 +21,11 @@
 $(document).ready(function() {
         $("#interest-select").on("change", function() {
                 let interest = $("#interest-select").find(":selected").val()
-                let students = get_students_by_interest(interest)
-                display_relevant_students(students)
+                get_students_by_interest(interest).then((students) => {
+                        display_relevant_students(students)
+                }).catch((err) => {
+                        alert("Unable to find students for given interest") 
+                })
         })
 })
 
@@ -35,8 +38,9 @@ $(document).ready(function() {
  *                        that this student participates in 
  */
 function get_students_by_interest(interest) {
-        console.log(interest)
-        return ["jimbob", "sally", "katie"]
+        return new Promise((resolve, reject) => {
+                resolve(["jimbob", "sally", "katie"])
+        })
 }
 
 /* Purpose: Display table of relevant students on page 
@@ -46,7 +50,10 @@ function get_students_by_interest(interest) {
  *              .groups = list of groups relating to interest
  *                        that this student participates in 
  * Returns: list of student objects
+ *
+ * Additional Info: 
+ *              Empties existing content from table to make room for new info
  */
 function display_relevant_students(students) {
-        console.log(students)
+
 }
