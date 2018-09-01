@@ -1,7 +1,7 @@
 /*
  * Find a Bo
- * admin.js
- * Handles administrative tasks like approving or removing users from the database
+ * interests.js
+ * Dynamically loads interests in form fields on various pages
  * Copyright (C) 2018  Sebastian Coates
 
  * This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-$(document).ready(function() {
-        console.log('page loaded')
-})
+var INTERESTS = ["1", "2", "3"]
+
+function load_interests() {
+        let select = $("#interest-select")
+        select.empty()
+        select.append("<option selected disabled>-- Select an Interest --</option>")
+        for (let i = 0; i < INTERESTS.length; i++) {
+                select.append("<option>" + INTERESTS[i] + "</option>")
+        }
+}

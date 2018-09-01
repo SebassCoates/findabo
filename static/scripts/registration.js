@@ -1,5 +1,6 @@
 /*
  * Find a Bo
+ * registration.js
  * Handles registration, where student leaders can submit their contact information to the database
  * Copyright (C) 2018  Sebastian Coates
 
@@ -18,5 +19,5 @@
  */
 
 $(document).ready(function() {
-        console.log('page loaded')
+        load_interests()
 })

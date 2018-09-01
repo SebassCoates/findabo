@@ -1,5 +1,6 @@
 /*
  * Find a Bo
+ * index.js
  * Handles search and database queries for dynamically loading student contacts
  * Copyright (C) 2018  Sebastian Coates
 
@@ -19,6 +20,7 @@
 
 // Prepare to handle search when page loads
 $(document).ready(function() {
+        load_interests()
         $("#interest-select").on("change", function() {
                 let interest = $("#interest-select").find(":selected").val()
                 get_students_by_interest(interest).then((students) => {

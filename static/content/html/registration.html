@@ -31,6 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
         <link rel="stylesheet" href="/styles/main.css">
         <script src="/scripts/registration.js"></script>
+        <script src="/scripts/interests.js"></script>
 
         <link rel="apple-touch-icon" sizes="180x180" href="/content/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/content/favicon/favicon-32x32.png">
@@ -53,8 +54,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
                 <button class="navbar-toggler navbar-toggler-right collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarTarget" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="ensure_visability()">
                 <span class="navbar-toggler-icon"></span>
-                </button>
-                
+                </button> 
 
                 <div class="collapse navbar-collapse " id='navbarTarget'>
                 <ul class="navbar-nav justify-content-start">
@@ -63,6 +63,63 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 </ul>
                 </div>
         </nav>
+
+        <div class="container mt-5 pt-4">
+        <div class="row">
+                    <div class='col-sm-2 px-0 mx-0'>
+                    </div>
+                    <div class='col-sm-8 col-sm-offset-2 px-0 mx-0'>
+                    <div class="text-center">
+                            <h3>Be a Resource for Others</h3>
+                            <p>
+                            Submit your interests and contact information to be 
+                            a resource for other students. By participating, you
+                            can help build a more involved community.
+                            </p>
+                            <p>If you have various interests on campus, you can
+register multiple times!</p>
+                    </div>
+                    </div>
+                    <div class='col-sm-2 col-sm-offset-10 px-0 mx-0'>
+                    </div>
+        </div>
+
+        <div class="row mt-3">
+                    <div class='col-sm-2 px-0 mx-0'>
+                    </div>
+                    <div class='col-sm-8 col-sm-offset-2 px-0 mx-0'>
+                    <form action="submit-registration" method="POST">
+                        <div class="form-group ">
+                        <label for="exampleFormControlSelect1">Interest</label>
+                        <select class="form-control" id="interest-select" required>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1" class="logo-color-light">Relevant groups (please enter a comma separated list)</label>
+                            <input type="" class="form-control" id="exampleFormControlInput1" placeholder="Tufts Jazz Orchestra, Private Lessons, Public Harmony" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1" class="logo-color-light">Name (preferred first and last, pronouns optional)</label>
+                            <input type="" class="form-control" id="exampleFormControlInput1" placeholder="Sebass Coates (he/him/his)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1" class="logo-color-light">Tufts Email </label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                        <p>Upon registering, the information above will be made
+                        visible to users of <i>Find a Bo</i>. You can ask to
+                        have your information removed at any time by emailing
+                        the <a href="mailto:sebastian.coates@tufts.edu">current 
+                        maintainer</a> from your Tufts email.</p>
+
+                    </form>
+
+                    </div>
+                    <div class='col-sm-2 col-sm-offset-10 px-0 mx-0'>
+                    </div>
+        </div>
+        </div>
 
         <footer class="footer mb-3 mt-5"> <hr>
             <div class="container">
