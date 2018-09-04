@@ -67,10 +67,10 @@ app.get('/admin', (req, res) => {
 })
 
 app.post("/submit-registration", (req, res) => {
-    let interest = req.body.interest.replace(/[^\w\s():-_/]/gi, '');
-    let role = req.body.role.replace(/[^\w\s():-_/]/gi, '');
-    let name = req.body.name.replace(/[^\w\s():-_/]/gi, '');
-    let email = req.body.email.replace(/[^\w\s@.-_]/gi, '');
+    let interest = req.body.interest.replace(/[^\w\s():\-\_/]/gi, '');
+    let role = req.body.role.replace(/[^\w\s():\-\_/]/gi, '');
+    let name = req.body.name.replace(/[^\w\s():\-\_/]/gi, '');
+    let email = req.body.email.replace(/[^\w\s@.\-\_]/gi, '');
 
     if (!email.toLowerCase().includes("@tufts.edu")) {
         res.end()
