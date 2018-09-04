@@ -25,7 +25,11 @@ $(document).ready(function() {
                 let interest = $("#interest-select").find(":selected").val()
                 get_students_by_interest(interest).then((students) => {
                         display_relevant_students(students)
+                        if (students.length == 0) {
+                                alert("No students have registered yet for " + interest)
+                        }
                 }).catch((err) => {
+                        console.error(err)
                         alert("Unable to find students for given interest") 
                 })
         })
@@ -36,12 +40,20 @@ $(document).ready(function() {
  * Returns: list of student objects defined as follows:
  *              .name   = name of student
  *              .email  = contact email address
- *              .groups = list of groups relating to given interest
- *                        that this student participates in 
+ *              .role   = leadership role
  */
 function get_students_by_interest(interest) {
         return new Promise((resolve, reject) => {
-                resolve(["jimbob", "sally", "katie"])
+                var http = new XMLHttpRequest()
+                sendstring = "interest=" + interest
+                http.open("POST","/get-leaders" ,true)
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+                http.onreadystatechange = function() {
+                        if (http.readyState == 4 && http.status == 200) {
+                                resolve(JSON.parse(http.responseText))
+                        }
+                }
+                http.send(sendstring)
         })
 }
 
@@ -49,13 +61,24 @@ function get_students_by_interest(interest) {
  * Params: studnets (list) - student objects defined as follows
  *              .name   = name of student
  *              .email  = contact email address
- *              .groups = list of groups relating to interest
- *                        that this student participates in 
+ *              .role   = leadership role
+ *
  * Returns: list of student objects
  *
  * Additional Info: 
  *              Empties existing content from table to make room for new info
  */
 function display_relevant_students(students) {
+        for (let i = 0; i < students.length; i++) {
+                let student = students[i]
+                $("#leader-table").append(`
+                        <tr>
+                        <th scope="col">` + student.interest + `</th>
+                        <th scope="col">` + student.role + `</th>
+                        <th scope="col">` + student.name + `</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `</th>
+                        </tr>
 
+                `)
+        }
 }
