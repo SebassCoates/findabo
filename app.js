@@ -110,12 +110,6 @@ app.post("/get-leaders", (req, res) =>  {
 })
 
 app.post("/get-unapproved", (req, res) => {
-    if (req.body.password != process.env.ADMIN_PASS) {
-        res.end()
-        console.error("Invalid password:" + req.body.password)
-        return
-    }
-
     DB.collection("leaders").find({approved:false}).toArray((err, arr) => {
         if (err) {
             res.end("")
@@ -127,12 +121,6 @@ app.post("/get-unapproved", (req, res) => {
 })
 
 app.post("/get-approved", (req, res) => {
-    if (req.body.password != process.env.ADMIN_PASS) {
-        res.end()
-        console.error("Invalid password:" + req.body.password)
-        return
-    }
-
     DB.collection("leaders").find({approved:true}).toArray((err, arr) => {
         if (err) {
             res.end("")
@@ -143,7 +131,24 @@ app.post("/get-approved", (req, res) => {
     })
 })
 
+app.post("/get-approved-random-small", (req, res) => {
+    DB.collection("leaders").find({approved:true}).limit(25).toArray((err, arr) => {
+        if (err) {
+            res.end("")
+            console.error(err)
+            return
+        }
+        res.send(JSON.stringify(arr))
+    })
+})
+
 app.post("/approve-leader", (req, res) => {
+    if (req.body.password != process.env.ADMIN_PASS) {
+        res.end()
+        console.error("Invalid password:" + req.body.password)
+        return
+    }
+
     let interest = req.body.interest
     let email = req.body.email
     let query = {interest:interest, email:email, approved:false}
@@ -159,6 +164,12 @@ app.post("/approve-leader", (req, res) => {
 })
 
 app.post("/remove-leader", (req, res) => {
+    if (req.body.password != process.env.ADMIN_PASS) {
+        res.end()
+        console.error("Invalid password:" + req.body.password)
+        return
+    }
+
     let interest = req.body.interest
     let email = req.body.email
     let query = {interest:interest, email:email, approved:true}

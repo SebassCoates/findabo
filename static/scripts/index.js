@@ -33,6 +33,11 @@ $(document).ready(function() {
                         alert("Unable to find students for given interest") 
                 })
         })
+
+        get_approved_leaders().then((students) => {
+                console.log(students)
+                display_approved_leaders(students)
+        })
 })
 
 /* Purpose: Query database for relevant students
@@ -69,6 +74,7 @@ function get_students_by_interest(interest) {
  *              Empties existing content from table to make room for new info
  */
 function display_relevant_students(students) {
+        $("#leader-table").empty()
         for (let i = 0; i < students.length; i++) {
                 let student = students[i]
                 $("#leader-table").append(`
@@ -81,4 +87,55 @@ function display_relevant_students(students) {
 
                 `)
         }
+}
+
+function get_approved_leaders() {
+        return new Promise((resolve, reject) => {
+                var http = new XMLHttpRequest()
+                let sendstring = ""
+                http.open("POST","/get-approved-random-small" ,true)
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+                http.onreadystatechange = function() {
+                        if (http.readyState == 4 && http.status == 200) {
+                                resolve(JSON.parse(http.responseText))
+                        }
+                }
+                http.send(sendstring)
+        })
+}
+
+function display_approved_leaders(students) {
+        students = shuffle(students)
+        for (let i = 0; i < students.length && i < 25; i++) {
+                let student = students[i]
+                $("#leader-table").append(`
+                        <tr id='` + i + `appr'>
+                        <th scope="col">` + student.interest + `</th>
+                        <th scope="col">` + student.role + `</th>
+                        <th scope="col">` + student.name + `</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `</th>
+                        </tr>
+
+                `)
+        }
+}
+
+//https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

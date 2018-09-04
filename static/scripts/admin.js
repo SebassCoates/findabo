@@ -18,8 +18,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+ var password = undefined
+
 $(document).ready(function() {
-	let password = prompt("Enter admin password")
+	password = prompt("Enter admin password")
 
 	get_unapproved_leaders(password).then((students) => {
 		display_unapproved_leaders(students)
@@ -65,7 +67,7 @@ function display_unapproved_leaders(students) {
 function get_approved_leaders(password) {
 	return new Promise((resolve, reject) => {
 		var http = new XMLHttpRequest()
-	        let sendstring = "password=" + password
+	        let sendstring = ""
 	        http.open("POST","/get-approved" ,true)
 	        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 	        http.onreadystatechange = function() {
@@ -99,7 +101,7 @@ function approve_leader(id) {
 	let email = entries[3]
 
 	var http = new XMLHttpRequest()
-        let sendstring = "interest=" + interest + "&email=" + email
+        let sendstring = "password=" + password + "&interest=" + interest + "&email=" + email
         http.open("POST","/approve-leader" ,true)
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
         http.onreadystatechange = function() {
@@ -118,7 +120,7 @@ function reject_leader(id) {
 	let email = entries[3]
 
 	var http = new XMLHttpRequest()
-        let sendstring = "interest=" + interest + "&email=" + email
+        let sendstring = "password=" + password + "&interest=" + interest + "&email=" + email
         http.open("POST","/remove-leader" ,true)
         console.log(sendstring)
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
