@@ -72,7 +72,7 @@ app.post("/submit-registration", (req, res) => {
     let name = req.body.name.replace(/[^\w\s():-_/]/gi, '');
     let email = req.body.email.replace(/[^\w\s@.-_]/gi, '');
 
-    if (!email.includes("@tufts.edu")) {
+    if (!email.toLowerCase().includes("@tufts.edu")) {
         res.end()
         console.error("Not Tufts email (or otherwise bad email):")
         console.error(email)
@@ -172,8 +172,7 @@ app.post("/remove-leader", (req, res) => {
 
     let interest = req.body.interest
     let email = req.body.email
-    let query = {interest:interest, email:email, approved:true}
-    let updates = { $set: {approved: true} };
+    let query = {interest:interest, email:email}
     DB.collection("leaders").deleteOne(query, (err, result) => {
         if (err) {
             res.end("Failure")
@@ -441,7 +440,7 @@ const INTERESTS = new Set([
 "Tufts Art History (TAH)– Graduate",
 "Tufts Bikes",
 "Tufts Daily",
-"Tufts Dance Collective  (TDC)",
+"Tufts Dance Collective (TDC)",
 "Tufts Emergency Medical Services (TEMS) (through TUPD)",
 "Tufts Idea Exchange (through IGL)",
 "Tufts International Development (TID)",
