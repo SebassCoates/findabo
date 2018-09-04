@@ -126,6 +126,23 @@ app.post("/get-unapproved", (req, res) => {
     })
 })
 
+app.post("/get-approved", (req, res) => {
+    if (req.body.password != process.env.ADMIN_PASS) {
+        res.end()
+        console.error("Invalid password:" + req.body.password)
+        return
+    }
+
+    DB.collection("leaders").find({approved:true}).toArray((err, arr) => {
+        if (err) {
+            res.end("")
+            console.error(err)
+            return
+        }
+        res.send(JSON.stringify(arr))
+    })
+})
+
 app.post("/approve-leader", (req, res) => {
     let interest = req.body.interest
     let email = req.body.email
@@ -144,9 +161,9 @@ app.post("/approve-leader", (req, res) => {
 app.post("/remove-leader", (req, res) => {
     let interest = req.body.interest
     let email = req.body.email
-    let query = {interest:interest, email:email, approved:false}
+    let query = {interest:interest, email:email, approved:true}
     let updates = { $set: {approved: true} };
-    DB.collection("leaders").deleteOne(query, updates, (err, result) => {
+    DB.collection("leaders").deleteOne(query, (err, result) => {
         if (err) {
             res.end("Failure")
             console.error(err)

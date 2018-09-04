@@ -21,8 +21,12 @@
 $(document).ready(function() {
 	let password = prompt("Enter admin password")
 
-	let unapproved = get_unapproved_leaders(password).then((students) => {
+	get_unapproved_leaders(password).then((students) => {
 		display_unapproved_leaders(students)
+	})
+
+	get_approved_leaders(password).then((students) => {
+		display_approved_leaders(students)
 	})
 })
 
@@ -44,7 +48,7 @@ function get_unapproved_leaders(password) {
 function display_unapproved_leaders(students) {
 	for (let i = 0; i < students.length; i++) {
                 let student = students[i]
-                $("#leader-table").append(`
+                $("#unapproved-table").append(`
                         <tr id='` + i + `'>
                         <th scope="col">` + student.interest + `,</th>
                         <th scope="col">` + student.role + `,</th>
@@ -52,6 +56,37 @@ function display_unapproved_leaders(students) {
                         <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `,</th>
                         <th scope="col"><button onclick='approve_leader("#` + i + `")'>Approve</button>
                         <th scope="col"><button onclick='reject_leader("#` + i + `")'>Reject</button>
+                        </tr>
+
+                `)
+        }
+}
+
+function get_approved_leaders(password) {
+	return new Promise((resolve, reject) => {
+		var http = new XMLHttpRequest()
+	        let sendstring = "password=" + password
+	        http.open("POST","/get-approved" ,true)
+	        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+	        http.onreadystatechange = function() {
+	                if (http.readyState == 4 && http.status == 200) {
+	                        resolve(JSON.parse(http.responseText))
+	                }
+	        }
+	        http.send(sendstring)
+	})
+}
+
+function display_approved_leaders(students) {
+	for (let i = 0; i < students.length; i++) {
+                let student = students[i]
+                $("#approved-table").append(`
+                        <tr id='` + i + `appr'>
+                        <th scope="col">` + student.interest + `,</th>
+                        <th scope="col">` + student.role + `,</th>
+                        <th scope="col">` + student.name + `,</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `,</th>
+                        <th scope="col"><button onclick='reject_leader("#` + i + `appr")'>Remove</button>
                         </tr>
 
                 `)
@@ -85,6 +120,7 @@ function reject_leader(id) {
 	var http = new XMLHttpRequest()
         let sendstring = "interest=" + interest + "&email=" + email
         http.open("POST","/remove-leader" ,true)
+        console.log(sendstring)
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
         http.onreadystatechange = function() {
                 if (http.readyState == 4 && http.status == 200) {
