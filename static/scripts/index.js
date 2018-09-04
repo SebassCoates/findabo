@@ -24,9 +24,10 @@ $(document).ready(function() {
         $("#interest-select").on("change", function() {
                 let interest = $("#interest-select").find(":selected").val()
                 get_students_by_interest(interest).then((students) => {
-                        display_relevant_students(students)
                         if (students.length == 0) {
                                 alert("No students have registered yet for " + interest)
+                        } else {
+                                display_relevant_students(students)
                         }
                 }).catch((err) => {
                         console.error(err)
