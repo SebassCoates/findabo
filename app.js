@@ -73,27 +73,27 @@ app.post("/submit-registration", (req, res) => {
     let email = req.body.email.replace(/[^\w\s@.\-\_]/gi, '');
 
     if (!email.toLowerCase().includes("@tufts.edu")) {
-        res.end()
+        res.redirect('/registration?result=failure' + "&name=" + name + "&email=" + email);
         console.error("Not Tufts email (or otherwise bad email):")
         console.error(email)
         return
     }
 
     if (!INTERESTS.has(interest)) {
-        res.end()
+        res.redirect('/registration?result=failure' + "&name=" + name + "&email=" + email);
         console.error("Invalid interest:")
         console.error(interest)
         return
     }
 
     if (!(interest && role && name && email)) {
-        res.end()
+        res.redirect('/registration?result=failure' + "&name=" + name + "&email=" + email);
         console.error("Invalid input")
         return
     }
 
     DB.collection("leaders").insertOne({interest: interest, role: role, name:name, email: email, approved:false}, (err, result) => {
-        res.redirect('/');
+        res.redirect('/registration?result=success' + "&name=" + name + "&email=" + email);
     })
 })
 

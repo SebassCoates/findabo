@@ -122,7 +122,6 @@ function reject_leader(id) {
 	var http = new XMLHttpRequest()
         let sendstring = "password=" + password + "&interest=" + interest + "&email=" + email
         http.open("POST","/remove-leader" ,true)
-        console.log(sendstring)
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
         http.onreadystatechange = function() {
                 if (http.readyState == 4 && http.status == 200) {
