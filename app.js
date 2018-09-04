@@ -35,8 +35,8 @@ MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, function
         console.log("Connected to MongoDB");
         DB = client.db()
     } else {
-        console.err("Unable to connect to MongoDB")
-        console.err(err)
+        console.error("Unable to connect to MongoDB")
+        console.error(err)
     }
 });
 
