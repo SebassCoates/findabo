@@ -108,6 +108,7 @@ var INTERESTS = [
 "Fencing: Club Sport (Men)",
 "Film Series (sub-group of TUSC)",
 "Financial Group",
+"First Generation Students Council",
 "Food Rescue (sub-group of LCS)",
 "French Society",
 "Freshman Class Council (sub-group of TUSC)",
