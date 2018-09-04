@@ -19,5 +19,79 @@
  */
 
 $(document).ready(function() {
-        console.log('page loaded')
+	let password = prompt("Enter admin password")
+
+	let unapproved = get_unapproved_leaders(password).then((students) => {
+		display_unapproved_leaders(students)
+	})
 })
+
+function get_unapproved_leaders(password) {
+	return new Promise((resolve, reject) => {
+		var http = new XMLHttpRequest()
+	        let sendstring = "password=" + password
+	        http.open("POST","/get-unapproved" ,true)
+	        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+	        http.onreadystatechange = function() {
+	                if (http.readyState == 4 && http.status == 200) {
+	                        resolve(JSON.parse(http.responseText))
+	                }
+	        }
+	        http.send(sendstring)
+	})
+}
+
+function display_unapproved_leaders(students) {
+	for (let i = 0; i < students.length; i++) {
+                let student = students[i]
+                $("#leader-table").append(`
+                        <tr id='` + i + `'>
+                        <th scope="col">` + student.interest + `,</th>
+                        <th scope="col">` + student.role + `,</th>
+                        <th scope="col">` + student.name + `,</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `,</th>
+                        <th scope="col"><button onclick='approve_leader("#` + i + `")'>Approve</button>
+                        <th scope="col"><button onclick='reject_leader("#` + i + `")'>Reject</button>
+                        </tr>
+
+                `)
+        }
+}
+
+function approve_leader(id) {
+	let entries = ($(id).find('th').text()).split(',')
+	let interest = entries[0]
+	let email = entries[3]
+
+	var http = new XMLHttpRequest()
+        let sendstring = "interest=" + interest + "&email=" + email
+        http.open("POST","/approve-leader" ,true)
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        http.onreadystatechange = function() {
+                if (http.readyState == 4 && http.status == 200) {
+                        if (http.responseText == "Success") {
+                        	$(id).remove()
+                        }
+                }
+        }
+        http.send(sendstring)
+}
+
+function reject_leader(id) {
+	let entries = ($(id).find('th').text()).split(',')
+	let interest = entries[0]
+	let email = entries[3]
+
+	var http = new XMLHttpRequest()
+        let sendstring = "interest=" + interest + "&email=" + email
+        http.open("POST","/remove-leader" ,true)
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        http.onreadystatechange = function() {
+                if (http.readyState == 4 && http.status == 200) {
+                        if (http.responseText == "Success") {
+                        	$(id).remove()
+                        }
+                }
+        }
+        http.send(sendstring)
+}

@@ -109,6 +109,53 @@ app.post("/get-leaders", (req, res) =>  {
     })
 })
 
+app.post("/get-unapproved", (req, res) => {
+    if (req.body.password != process.env.ADMIN_PASS) {
+        res.end()
+        console.error("Invalid password:" + req.body.password)
+        return
+    }
+
+    DB.collection("leaders").find({approved:false}).toArray((err, arr) => {
+        if (err) {
+            res.end("")
+            console.error(err)
+            return
+        }
+        res.send(JSON.stringify(arr))
+    })
+})
+
+app.post("/approve-leader", (req, res) => {
+    let interest = req.body.interest
+    let email = req.body.email
+    let query = {interest:interest, email:email, approved:false}
+    let updates = { $set: {approved: true} };
+    DB.collection("leaders").updateOne(query, updates, (err, result) => {
+        if (err) {
+            res.end("Failure")
+            console.error(err)
+            return
+        }
+        res.end("Success")
+    })
+})
+
+app.post("/remove-leader", (req, res) => {
+    let interest = req.body.interest
+    let email = req.body.email
+    let query = {interest:interest, email:email, approved:false}
+    let updates = { $set: {approved: true} };
+    DB.collection("leaders").deleteOne(query, updates, (err, result) => {
+        if (err) {
+            res.end("Failure")
+            console.error(err)
+            return
+        }
+        res.end("Success")
+    })
+})
+
 app.listen((process.env.PORT || PORT), function() {
   console.log('Node app is running on port: ' + (process.env.PORT || PORT));
 });
