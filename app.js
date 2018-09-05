@@ -375,6 +375,7 @@ const INTERESTS = new Set([
 "Public Harmony",
 "Public Health at Tufts",
 "Public Journal Pulse Dance Team",
+"Pulse",
 "Queer Straight Association (QSA)",
 "Quest Scholars",
 "Quidditch Team",
