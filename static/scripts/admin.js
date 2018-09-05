@@ -115,7 +115,7 @@ function approve_leader(id) {
 }
 
 function reject_leader(id) {
-	let entries = ($(id).find('th').text()).split(',')
+	let entries = ($(id).find('th').text()).split('~')
 	let interest = entries[0]
 	let email = entries[3]
 
