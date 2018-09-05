@@ -36,7 +36,6 @@ $(document).ready(function() {
         })
 
         get_approved_leaders().then((students) => {
-                console.log(students)
                 display_approved_leaders(students)
         })
 })
