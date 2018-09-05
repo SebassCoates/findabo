@@ -52,10 +52,10 @@ function display_unapproved_leaders(students) {
                 let student = students[i]
                 $("#unapproved-table").append(`
                         <tr id='` + i + `'>
-                        <th scope="col">` + student.interest + `,</th>
-                        <th scope="col">` + student.role + `,</th>
-                        <th scope="col">` + student.name + `,</th>
-                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `,</th>
+                        <th scope="col">` + student.interest + `~</th>
+                        <th scope="col">` + student.role + `~</th>
+                        <th scope="col">` + student.name + `~</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `~</th>
                         <th scope="col"><button onclick='approve_leader("#` + i + `")'>Approve</button>
                         <th scope="col"><button onclick='reject_leader("#` + i + `")'>Reject</button>
                         </tr>
@@ -84,10 +84,10 @@ function display_approved_leaders(students) {
                 let student = students[i]
                 $("#approved-table").append(`
                         <tr id='` + i + `appr'>
-                        <th scope="col">` + student.interest + `,</th>
-                        <th scope="col">` + student.role + `,</th>
-                        <th scope="col">` + student.name + `,</th>
-                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `,</th>
+                        <th scope="col">` + student.interest + `~</th>
+                        <th scope="col">` + student.role + `~</th>
+                        <th scope="col">` + student.name + `~</th>
+                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `~</th>
                         <th scope="col"><button onclick='reject_leader("#` + i + `appr")'>Remove</button>
                         </tr>
 
@@ -96,7 +96,7 @@ function display_approved_leaders(students) {
 }
 
 function approve_leader(id) {
-	let entries = ($(id).find('th').text()).split(',')
+	let entries = ($(id).find('th').text()).split('~')
 	let interest = entries[0]
 	let email = entries[3]
 
