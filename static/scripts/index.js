@@ -111,9 +111,9 @@ function display_approved_leaders(students) {
                 $("#leader-table").append(`
                         <tr id='` + i + `appr'>
                         <th scope="col">` + student.interest + `</th>
-                        <th scope="col">` + student.role + `</th>
-                        <th scope="col">` + student.name + `</th>
-                        <th scope="col"><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `</th>
+                        <td>` + student.role + `</td>
+                        <td>` + student.name + `</td>
+                        <td><a href='mailto:` + student.email + "?subject=Found a Bo'>" + student.email + `</td>
                         </tr>
 
                 `)
