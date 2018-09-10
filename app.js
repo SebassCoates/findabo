@@ -405,6 +405,7 @@ const INTERESTS = new Set([
 "SAGE (through Women’s Center)",
 "Sarabande Senior Class Council (sub-group of TUSC)",
 "S-Factor",
+"SEDS: Students for the Exploration and Development of Space",
 "Sharewood",
 "Shelters (sub-group of LCS)",
 "Shir Appeal",
